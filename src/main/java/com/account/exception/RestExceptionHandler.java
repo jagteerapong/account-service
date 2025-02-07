@@ -33,6 +33,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+	@ExceptionHandler({SystemLogonNotValidException.class})
+	public ResponseEntity<ResponseMessage> handleSystemLogonNotValidException(SystemLogonNotValidException ex) {
+		ResponseMessage response = new ResponseMessage();
+		response.setCode(AccountResponse.Code.SYSTEM_LOGON_NOT_VALID);
+		response.setMessage(AccountResponse.Message.SYSTEM_LOGON_NOT_VALID);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(
 			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {

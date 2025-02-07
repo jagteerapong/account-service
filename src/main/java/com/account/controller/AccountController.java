@@ -22,6 +22,7 @@ import com.account.model.response.InquiryResponse;
 import com.account.model.response.UpdateEmailResponse;
 import com.account.model.response.UpdateMobileResponse;
 import com.account.service.AccountService;
+import com.account.service.AuthenSystemLogonService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -32,6 +33,9 @@ import jakarta.validation.Valid;
 public class AccountController {
 	
 	@Autowired
+	private AuthenSystemLogonService authenSystemLogonService;
+	
+	@Autowired
 	private AccountService accountService;
 
 	@Operation(summary = "Create account")
@@ -39,6 +43,7 @@ public class AccountController {
 	@PostMapping(value = "/create")
 	public ResponseEntity<CreateResponse> create(@Valid @RequestBody CreateRequest request) throws Exception {
 		try {
+			authenSystemLogonService.isSystemLogonActive(request.getSystemName());
 			accountService.createAccount(request);
 		} catch (Exception e) {
 			throw e;
@@ -51,6 +56,7 @@ public class AccountController {
 	@PostMapping(value = "/update/mobile")
 	public ResponseEntity<UpdateMobileResponse> updateMobile(@Valid @RequestBody UpdateMobileRequest request) throws Exception {
 		try {
+			authenSystemLogonService.isSystemLogonActive(request.getSystemName());
 			accountService.updateMobile(request);
 		} catch (Exception e) {
 			throw e;
@@ -63,6 +69,7 @@ public class AccountController {
 	@PostMapping(value = "/update/email")
 	public ResponseEntity<UpdateEmailResponse> updateEmail(@Valid @RequestBody UpdateEmailRequest request) throws Exception {
 		try {
+			authenSystemLogonService.isSystemLogonActive(request.getSystemName());
 			accountService.updateEmail(request);
 		} catch (Exception e) {
 			throw e;
@@ -75,6 +82,7 @@ public class AccountController {
 	@PostMapping(value = "/delete")
 	public ResponseEntity<DeleteResponse> delete(@Valid @RequestBody DeleteRequest request) throws Exception {
 		try {
+			authenSystemLogonService.isSystemLogonActive(request.getSystemName());
 			accountService.deleteAccount(request);
 		} catch (Exception e) {
 			throw e;
@@ -88,6 +96,7 @@ public class AccountController {
 	public ResponseEntity<InquiryResponse> inquiry(@Valid @RequestBody InquiryRequest request) throws Exception {
 		InquiryResponse response = new InquiryResponse();
 		try {
+			authenSystemLogonService.isSystemLogonActive(request.getSystemName());
 			AccountBean account = accountService.getAccountByAccountNumber(request.getAccountNumber());
 			response.setAccount(account);
 		} catch (Exception e) {

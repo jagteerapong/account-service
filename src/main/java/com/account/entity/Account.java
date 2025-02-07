@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Table(name = "ACCOUNT")
 public class Account {
 	@Id
-	@Column(name = "ACCOUNT_NUMBER")
+	@Column(name = "ACCOUNT_NUMBER", nullable = false)
 	private String accountNumber;
 	
 	@Column(name = "FIRSTNAME")
