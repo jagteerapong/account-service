@@ -21,14 +21,6 @@ public class CacheController {
 	@Autowired
 	private CacheManager cacheManager;
 	
-	@GetMapping(value = "/log-all-cache")
-	public ResponseEntity<ResponseMessage> logAllCache() {
-		for(String cacheName : cacheManager.getCacheNames()) {
-			log.info("Cache name : {}", cacheName);
-		}
-		return new ResponseEntity<>(new ResponseMessage(), HttpStatus.OK);
-	}
-	
 	@GetMapping(value = "/clear-cache")
 	public ResponseEntity<ResponseMessage> clearCache() {
 		log.info("clear-cache start");
