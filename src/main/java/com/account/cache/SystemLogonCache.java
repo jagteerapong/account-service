@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +15,11 @@ import com.account.repository.SystemLogonRepository;
 public class SystemLogonCache {
 	private static final Logger log = LogManager.getLogger(SystemLogonCache.class);
 	
-	@Autowired
-	private SystemLogonRepository systemLogonRepository;
+	private final SystemLogonRepository systemLogonRepository;
+	
+	public SystemLogonCache(SystemLogonRepository systemLogonRepository) {
+		this.systemLogonRepository = systemLogonRepository;
+	}
 	
 	@Cacheable("system-logon")
 	public SystemLogon getSystemLogon(String systemName) {

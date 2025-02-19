@@ -1,6 +1,5 @@
 package com.account.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +31,15 @@ import jakarta.validation.Valid;
 @RequestMapping(path = "/account", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class AccountController {
 	
-	@Autowired
-	private AuthenSystemLogonService authenSystemLogonService;
+	private final AuthenSystemLogonService authenSystemLogonService;
+	private final AccountService accountService;
 	
-	@Autowired
-	private AccountService accountService;
+	public AccountController(
+			AuthenSystemLogonService authenSystemLogonService,
+			AccountService accountService) {
+		this.authenSystemLogonService = authenSystemLogonService;
+		this.accountService = accountService; 
+	}
 
 	@Operation(summary = "Create account")
 	@ApiResponse(responseCode = AccountResponse.Code.SUCCESS, description = AccountResponse.Message.SUCCESS)

@@ -1,7 +1,6 @@
 package com.account.service.impl;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.account.cache.SystemLogonCache;
@@ -15,8 +14,11 @@ import jakarta.transaction.Transactional;
 @Service
 public class AuthenSystemLogonServiceImpl implements AuthenSystemLogonService {
 	
-	@Autowired
-	private SystemLogonCache systemLogonCache;
+	private final SystemLogonCache systemLogonCache;
+	
+	public AuthenSystemLogonServiceImpl(SystemLogonCache systemLogonCache) {
+		this.systemLogonCache = systemLogonCache;
+	}
 
 	@Override
 	public void isSystemLogonActive(String systemName) throws Exception {

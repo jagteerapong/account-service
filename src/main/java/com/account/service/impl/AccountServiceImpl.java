@@ -2,7 +2,6 @@ package com.account.service.impl;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.account.constants.AccountResponse;
@@ -22,8 +21,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class AccountServiceImpl implements AccountService {
 	
-	@Autowired
-	private AccountRepository accountRepository;
+	private final AccountRepository accountRepository;
+	
+	public AccountServiceImpl(AccountRepository accountRepository) {
+		this.accountRepository = accountRepository;
+	}
 	
 	@Override
 	public void createAccount(CreateRequest request) throws Exception {

@@ -2,7 +2,6 @@ package com.account.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,8 +17,11 @@ import com.account.model.response.ResponseMessage;
 public class CacheController {
 	private static final Logger log = LogManager.getLogger(CacheController.class);
 	
-	@Autowired
-	private CacheManager cacheManager;
+	private final CacheManager cacheManager;
+	
+	public CacheController(CacheManager cacheManager) {
+		this.cacheManager = cacheManager;
+	}
 	
 	@GetMapping(value = "/clear-cache")
 	public ResponseEntity<ResponseMessage> clearCache() {
