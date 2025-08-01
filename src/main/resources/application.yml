@@ -14,3 +14,13 @@ spring:
       hibernate:
         ddl-auto: update
         dialect: org.hibernate.dialect.OracleDialect
+        
+auth:
+  users:
+    - username: admin
+      password: passw@rd
+      roles: [ADMIN]
+    - username: user1
+      password: passw@rd
+      roles: [USER]
+    
