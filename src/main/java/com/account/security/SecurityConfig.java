@@ -43,11 +43,11 @@ public class SecurityConfig {
 	}
 	
 	@Bean
-	public UserDetailsService users(PasswordEncoder encoder) {
+	public UserDetailsService users() {
 		List<UserDetails> userList = authUserProperties.getUsers()
 				.stream()
 				.map(u -> User.withUsername(u.getUsername())
-						.password(encoder.encode(u.getPassword()))
+						.password(passwordEncoder().encode(u.getPassword()))
 						.roles(u.getRoles().toArray(new String[0]))
 						.build()).toList();
 		return new InMemoryUserDetailsManager(userList);

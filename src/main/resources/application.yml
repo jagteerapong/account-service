@@ -7,20 +7,24 @@ spring:
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:XE
     username: SYSTEM
-    password: adminPass
+    password: AdminP@ssWord
     driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     properties:
       hibernate:
         ddl-auto: update
         dialect: org.hibernate.dialect.OracleDialect
+
+jasypt:
+  encryptor:
+    bean: encryptorBean
         
 auth:
   users:
     - username: admin
-      password: passw@rd
+      password: ENC(M5zNz8B706z2Uwdw90ktjE7Pa3FjXrvE)
       roles: [ADMIN]
     - username: user1
-      password: passw@rd
+      password: ENC(M5zNz8B706z2Uwdw90ktjE7Pa3FjXrvE)
       roles: [USER]
     
