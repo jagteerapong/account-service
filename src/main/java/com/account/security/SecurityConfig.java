@@ -11,12 +11,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 	
 	private static final String ADMIN = "ADMIN";
@@ -29,17 +31,17 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http
-	        .csrf(AbstractHttpConfigurer::disable)
-	        .authorizeHttpRequests(auth -> auth
-	        	.requestMatchers("/account/create").hasAnyRole(ADMIN)
-	        	.requestMatchers("/cache/clear-cache").hasAnyRole(ADMIN)
-	        	.requestMatchers("/account/**").hasAnyRole(USER, ADMIN)
-	        	.anyRequest().authenticated()
-	        )
-	        .httpBasic(withDefaults());
-
-	    return http.build();
+		http
+		.csrf(AbstractHttpConfigurer::disable)
+		.authorizeHttpRequests(auth -> auth
+				.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+				.requestMatchers("/account/create", "/cache/clear-cache").hasRole(ADMIN)
+				.requestMatchers("/account/**").hasAnyRole(USER ,ADMIN)
+				.anyRequest().authenticated()
+				)
+		.httpBasic(withDefaults());
+		
+		return http.build();
 	}
 	
 	@Bean
