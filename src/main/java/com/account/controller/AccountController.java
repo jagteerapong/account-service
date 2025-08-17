@@ -1,7 +1,6 @@
 package com.account.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,11 +27,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/account", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/account")
 public class AccountController {
 	
-	private final AuthenSystemLogonService authenSystemLogonService;
-	private final AccountService accountService;
+	private AuthenSystemLogonService authenSystemLogonService;
+	private AccountService accountService;
 	
 	public AccountController(
 			AuthenSystemLogonService authenSystemLogonService,

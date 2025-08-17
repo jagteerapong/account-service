@@ -1,6 +1,5 @@
 package com.account.service.impl;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import com.account.cache.SystemLogonCache;
@@ -10,11 +9,11 @@ import com.account.service.AuthenSystemLogonService;
 
 import jakarta.transaction.Transactional;
 
-@Transactional
 @Service
+@Transactional
 public class AuthenSystemLogonServiceImpl implements AuthenSystemLogonService {
 	
-	private final SystemLogonCache systemLogonCache;
+	private SystemLogonCache systemLogonCache;
 	
 	public AuthenSystemLogonServiceImpl(SystemLogonCache systemLogonCache) {
 		this.systemLogonCache = systemLogonCache;
@@ -24,7 +23,7 @@ public class AuthenSystemLogonServiceImpl implements AuthenSystemLogonService {
 	public void isSystemLogonActive(String systemName) throws Exception {
 		try {
 			SystemLogon systemLogon = systemLogonCache.getSystemLogon(systemName);
-			if(ObjectUtils.isEmpty(systemLogon)) {
+			if(null == systemLogon) {
 				throw new SystemLogonNotValidException();
 			}
 		} catch (Exception e) {

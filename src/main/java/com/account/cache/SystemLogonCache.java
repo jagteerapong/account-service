@@ -13,9 +13,10 @@ import com.account.repository.SystemLogonRepository;
 
 @Component
 public class SystemLogonCache {
+	
 	private static final Logger log = LogManager.getLogger(SystemLogonCache.class);
 	
-	private final SystemLogonRepository systemLogonRepository;
+	private SystemLogonRepository systemLogonRepository;
 	
 	public SystemLogonCache(SystemLogonRepository systemLogonRepository) {
 		this.systemLogonRepository = systemLogonRepository;
